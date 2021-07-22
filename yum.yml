@@ -1,0 +1,23 @@
+- hosts: all
+  tasks:
+   - file:
+           state: directory
+           path: "/dvd"
+   - mount:
+           src: "/dev/cdrom"
+           path: "/dvd"
+           state: mounted
+           fstype: "iso9660"
+                 
+   - yum_repository:
+           name: "yum repo"
+           baseurl:  "/dvd/AppStream"           
+           description: "yum congiuration successful"
+           gpgcheck: no
+
+           
+   - yum_repository:
+           name: "yum repo"
+           baseurl: "/dvd/BaseOs"
+           description: "yum configure"
+           gpgcheck: no        

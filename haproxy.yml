@@ -1,0 +1,31 @@
+- hosts: web
+  tasks:
+
+  - package:
+         name: "httpd" 
+         state: present
+         
+  - copy:   
+         content: "loadbalancer for testing {{ ansible_hostname }}"
+         dest:  "/var/www/html/index.html"
+     
+  - service:
+          name: "httpd"
+          state: started
+
+
+- hosts: lb
+  tasks:
+       - name: "install loadbalancer software"
+         package:
+                 name: "haproxy"    
+                 state: present
+                 
+       - template:
+                 src: haproxy.cfg
+                 dest: /etc/haproxy/haproxy.cfg
+
+       - service:
+                 name: "haproxy"
+                 state: restarted          
+

@@ -1,0 +1,18 @@
+- hosts: localhost
+  vars_files:
+          - secure.yml
+  tasks:
+  - name: os provisinig in awscloud
+    ec2:
+     key_name: "mykey1111"
+     instance_type: "t2.micro"
+     image: "ami-0bcf5425cdc1d8a85"
+     wait: yes
+     count: 1
+     vpc_subnet_id: "subnet-0406c476e0222f6d3"
+     assign_public_ip: yes
+     state: present
+     region: "ap-south-1"
+     group_id: "sg-02586eb34b362894a"
+     aws_access_key: "{{ user }}" 
+     aws_secret_key: "{{ pass }}"
